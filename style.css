@@ -77,7 +77,7 @@ body {
 .btn:hover{ 
   background-color: #100f25; 
 }
-.btn-close{
+.btn.btn-danger.btn-close{
  background-color: #e11023; 
 }
 .input-group {
