@@ -34,12 +34,15 @@ body {
     border-radius: 5px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
 }
+
 #clearFilter{
     margin: 0 auto;
     height: 38px;
     top: 25px;
 }
+
 #editForm {
+    position: fixed;
     background-color: #B373C5;
     padding: 20px;
     border-radius: 5px;
@@ -50,36 +53,50 @@ body {
     z-index: 99;
     display: block;
     margin: 0;
-    position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+
 #editForm.mr-3{
     display: none; 
 }
+
 .form-control {
     margin-top: 25px;
 }
+
 .list-group-item {
     margin-bottom: 10px;
     border-radius: 5px;
 }
+
 .btn.btn-success{
     margin-top: 25px;
 }
+
 .btn {
     margin-right: 10px;
     background-color: #6D68CF;
     color: #ffffff; 
 }
+
 .btn:hover{ 
   background-color: #100f25; 
 }
+
 .btn.btn-danger.btn-close{
  background-color: #e11023; 
 }
+
 .input-group {
     margin-bottom: 20px;
 }
+
+.grid-item {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 100%;
+  }
+  

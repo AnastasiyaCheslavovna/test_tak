@@ -35,28 +35,46 @@ window.onload = function() {
   document.getElementById('itemList').addEventListener('click', selectItem);
   document.getElementById('closeEditForm').addEventListener('click', function(event) {
     event.preventDefault();
-    document.getElementById('editForm').style.display = 'none'; // Hide the form
+    document.getElementById('editForm').style.display = 'none'; 
   });
-  
+  document.getElementById('listViewButton').addEventListener('click', switchToListView);
+  document.getElementById('gridViewButton').addEventListener('click', switchToGridView);
+
+}
+
+function createListItem(item, index) {
+  const listItem = document.createElement('button');
+  listItem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'justify-content-between', 'align-items-center');
+  listItem.value = index; 
+
+  const nameElement = document.createElement('span');
+  nameElement.textContent = item.name;
+  listItem.appendChild(nameElement);
+
+  const valueElement = document.createElement('span');
+  valueElement.textContent = item.value;
+  listItem.appendChild(valueElement);
+
+  return listItem;
+}
+
+function createGridItem(item, index) {
+  const gridItem = document.createElement('div');
+  gridItem.classList.add('col-lg-3', 'col-md-4', 'col-sm-6', 'col-12', 'item');
+
+  const listItem = createListItem(item, index); 
+  gridItem.appendChild(listItem); 
+
+  return gridItem;
 }
 
 function populateItemList(dataToDisplay = data) {
   const itemList = document.getElementById('itemList');
   itemList.innerHTML = '';
+  const isGridView = itemList.classList.contains('row'); 
   dataToDisplay.forEach((item, index) => {
-    const listItem = document.createElement('button');
-    listItem.classList.add('list-group-item', 'list-group-item-action', 'd-flex', 'justify-content-between', 'align-items-center');
-    listItem.value = index; // Set the value attribute on the button element
-
-    const nameElement = document.createElement('span');
-    nameElement.textContent = item.name;
-    listItem.appendChild(nameElement);
-
-    const valueElement = document.createElement('span');
-    valueElement.textContent = item.value;
-    listItem.appendChild(valueElement);
-
-    itemList.appendChild(listItem);
+    const itemElement = isGridView ? createGridItem(item, index) : createListItem(item, index);
+    itemList.appendChild(itemElement);
   });
   document.getElementById('itemCount').textContent = `Showing ${dataToDisplay.length} items`;
 }
@@ -67,7 +85,7 @@ function selectItem(event) {
     selectedItemId = clickedItemId;
     document.getElementById('nameDisplay').value = data[selectedItemId].name;
     document.getElementById('valueInput').value = data[selectedItemId].value;
-    document.getElementById('editForm').style.display = 'block'; // Show the form
+    document.getElementById('editForm').style.display = 'block'; 
   }
 }
 
@@ -100,14 +118,12 @@ function sortItems(type) {
     nameSortOrder = nameSortOrder === 0 ? 1 : -nameSortOrder;
     data.sort((a, b) => nameSortOrder * a.name.localeCompare(b.name));
     document.getElementById('sortByName').textContent = `Sort by Name ${nameSortOrder === 1 ? '▲' : '▼'}`;
-    // Reset the sort order and the text of the other sort button
     valueSortOrder = 0;
     document.getElementById('sortByValue').textContent = 'Sort by Value';
   } else if (type === 'value') {
     valueSortOrder = valueSortOrder === 0 ? 1 : -valueSortOrder;
     data.sort((a, b) => valueSortOrder * a.value.localeCompare(b.value));
     document.getElementById('sortByValue').textContent = `Sort by Value ${valueSortOrder === 1 ? '▲' : '▼'}`;
-    // Reset the sort order and the text of the other sort button
     nameSortOrder = 0;
     document.getElementById('sortByName').textContent = 'Sort by Name';
   }
@@ -128,4 +144,18 @@ function clearFilter() {
 function closeEditForm(event) {
   event.preventDefault();
   document.getElementById('editForm').style.display = 'none';
+}
+
+function switchToListView() {
+  const itemList = document.getElementById('itemList');
+  itemList.classList.remove('row');
+  itemList.classList.add('list-group'); 
+  populateItemList(); 
+}
+
+function switchToGridView() {
+  const itemList = document.getElementById('itemList');
+  itemList.classList.add('row'); 
+  itemList.classList.remove('list-group'); 
+  populateItemList(); 
 }
