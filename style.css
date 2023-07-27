@@ -36,27 +36,33 @@ body {
 }
 
 #editForm {
-    background-color: rgba(255, 255, 255, 0.9); 
+    background-color: #B373C5;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
-    position: fixed;
     right: 0; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    width: 20%; 
     max-height: 90vh;
     overflow: auto; 
     display: none; 
     z-index: 99;
+    display: block;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
-
-
+.form-control {
+    margin-top: 25px;
+}
 .list-group-item {
     margin-bottom: 10px;
     border-radius: 5px;
 }
-
+.btn btn-success{
+    margin-top: 25px;
+}
 .btn {
     margin-right: 10px;
     background-color: #6D68CF;
